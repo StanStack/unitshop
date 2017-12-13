@@ -55,7 +55,6 @@
             <div class="item-list-wrap">
               <div class="cart-item">
                 <div class="cart-item-head">
-                  <h2>{{title}}</h2>
                   <ul>
                     <li>商品信息</li>
                     <li>商品金额</li>
@@ -65,7 +64,7 @@
                   </ul>
                 </div>
                 <ul class="cart-item-list">
-                  <li>
+                  <li v-for="item in productList">
                     <div class="cart-tab-1">
                       <div class="cart-item-check">
                         <a href="javascript:void 0" class="item-check-btn">
@@ -76,17 +75,17 @@
                         <img src="img/goods-1.jpg" alt="烟">
                       </div>
                       <div class="cart-item-title">
-                        <div class="item-name">黄鹤楼香烟</div>
+                        <div class="item-name">{{item.productName}}</div>
                       </div>
                       <div class="item-include">
                         <dl>
                           <dt>赠送:</dt>
-                          <dd>打火机</dd>
+                          <dd v-for="part in item.parts" v-text="part.partsName"></dd>
                         </dl>
                       </div>
                     </div>
                     <div class="cart-tab-2">
-                      <div class="item-price"></div>
+                      <div class="item-price">{{item.productPrice}}</div>
                     </div>
                     <div class="cart-tab-3">
                       <div class="item-quantity">
@@ -101,7 +100,7 @@
                       </div>
                     </div>
                     <div class="cart-tab-4">
-                      <div class="item-price-total">0.00</div>
+                      <div class="item-price-total"></div>
                     </div>
                     <div class="cart-tab-5">
                       <div class="cart-item-operation">
