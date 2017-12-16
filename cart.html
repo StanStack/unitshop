@@ -67,7 +67,7 @@
                   <li v-for="item in productList">
                     <div class="cart-tab-1">
                       <div class="cart-item-check">
-                        <a href="javascript:void 0" class="item-check-btn">
+                        <a href="javascript:void 0" class="item-check-btn" v-bind:class="{'check':item.checked}" v-on:click="selectedProduct(item)">
                           <svg class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg>
                         </a>
                       </div>
@@ -91,9 +91,9 @@
                       <div class="item-quantity">
                         <div class="select-self select-self-open">
                           <div class="quantity">
-                            <a href="javascript:void 0">-</a>
+                            <a href="javascript:void 0" v-on:click="changeMoney(item,-1)">-</a>
                             <input type="text" value="0" disabled v-model="item.productQuantity">
-                            <a href="javascript:void 0">+</a>
+                            <a href="javascript:void 0" @click="changeMoney(item,1)">+</a>
                           </div>
                         </div>
                         <div class="item-stock">有货</div>
@@ -104,7 +104,7 @@
                     </div>
                     <div class="cart-tab-5">
                       <div class="cart-item-operation">
-                        <a href="javascript:void 0" class="item-edit-btn">
+                        <a href="javascript:void 0" class="item-edit-btn" @click="delComfirm()">
                           <svg class="icon icon-del"><use xlink:href="#icon-del" ></use></svg>
                         </a>
                       </div>
@@ -117,23 +117,23 @@
             <!-- footer -->
             <div class="cart-foot-wrap">
               <div class="cart-foot-l">
-                <div class="item-all-check">
+                <div class="item-all-check" @click="checkAll(true)">
                   <a href="javascript:void 0">
-                    <span class="item-check-btn" >
+                    <span class="item-check-btn" :class="{'check':checkAllFlag}" >
                       <svg class="icon icon-ok"><use xlink:href="#icon-ok"></use></svg>
                     </span>
-                    <span>全选</span>
+                    <span v-show="!checkAllFlag">全选</span>
                   </a>
                 </div>
-                <div class="item-all-del">
-                  <a href="javascript:void 0" class="item-del-btn">
-                    <span>取消全选</span>
+                <div class="item-all-del" @click="checkAll(false)">
+                  <a href="javascript:void 0" class="item-del-btn"  >
+                    <span v-show="checkAllFlag">取消全选</span>
                   </a>
                 </div>
               </div>
               <div class="cart-foot-r">
                 <div class="item-total">
-                  Item total: <span class="total-price"></span>
+                  Item total: <span class="total-price">{{totalMoney| money('元')}}</span>
                 </div>
                 <div class="next-btn-wrap">
                   <a href="javascrit:;" class="btn btn--red" style="width: 200px">结账</a>
@@ -143,22 +143,23 @@
           </div>
         </div>
 
-        <div class="md-modal modal-msg md-modal-transition" id="showModal">
+        <div class="md-modal modal-msg md-modal-transition" id="showModal" v-bind:class="{'md-show':delFlag}">
           <div class="md-modal-inner">
             <div class="md-top">
-              <button class="md-close">关闭</button>
+              <button class="md-close" v-on:click="delFlag=false">关闭</button>
             </div>
             <div class="md-content">
               <div class="confirm-tips">
                 <p id="cusLanInfo">你确认删除此订单信息吗?</p>
               </div>
               <div class="btn-wrap col-2">
-                <button class="btn btn--m" id="btnModalConfirm">Yes</button>
-                <button class="btn btn--m btn--red" id="btnModalCancel">No</button>
+                <button class="btn btn--m" id="btnModalConfirm" v-on:click="delProduct()">Yes</button>
+                <button class="btn btn--m btn--red" id="btnModalCancel" v-on:click="delFlag=false">No</button>
               </div>
             </div>
           </div>
         </div>
+        <div class="md-overlay" v-if="delFlag" @click="delFlag=false"></div>
       </div>
     </div>
 
