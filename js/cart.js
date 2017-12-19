@@ -15,6 +15,7 @@ var vm = new Vue({
         checkAllFlag:false,
         delFlag:false,
         curProduct:[],
+
     },
     filters:{
         formatMoney:function(value){

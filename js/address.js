@@ -10,7 +10,8 @@ new Vue({
     },
     data:{
         addressList:[],
-        limitNumber:3
+        limitNumber:3,
+        currentIndex:0
     },
     methods:{
         getAddressData:function(){
@@ -28,6 +29,13 @@ new Vue({
             }else{
                 this.limitNumber=3;
             }
+        },
+        setDefault:function(addressId){
+            this.addressList.forEach(function(address,index){
+                if(address.addressId==addressId){
+
+                }
+            })
         }
     },
     computed:{
