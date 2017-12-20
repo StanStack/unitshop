@@ -11,7 +11,8 @@ new Vue({
     data:{
         addressList:[],
         limitNumber:3,
-        currentIndex:0
+        currentIndex:0,
+        shipMethod:1
     },
     methods:{
         getAddressData:function(){
@@ -33,7 +34,9 @@ new Vue({
         setDefault:function(addressId){
             this.addressList.forEach(function(address,index){
                 if(address.addressId==addressId){
-
+                    address.isDefault=true;
+                }else{
+                    address.isDefault=false;
                 }
             })
         }

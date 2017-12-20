@@ -79,7 +79,7 @@
                     <svg class="icon icon-del"><use xlink:href="#icon-del"></use></svg>
                   </a>
                 </div>
-                <div class="addr-opration addr-set-default">
+                <div class="addr-opration addr-set-default" v-if="!item.isDefault">
                   <a href="javascript:;" class="addr-set-default-btn" v-on:click="setDefault(item.addressId)"><i>设为默认</i></a>
                 </div>
                 <div class="addr-opration addr-default" v-show="item.isDefault">默认地址</div>
@@ -114,12 +114,12 @@
         <div class="shipping-method-wrap">
           <div class="shipping-method">
             <ul>
-              <li>
-                <div class="name">标准配送</div>
-                <div class="price">Free</div>
+              <li v-bind:class="{'check':shipMethod==1}" v-on:click="shipMethod=1">
+                <div class="name" >标准配送</div>
+                <div class="price" >Free</div>
               </li>
-              <li>
-                <div class="name">高级配送</div>
+              <li v-bind:class="{'check':shipMethod==2}" v-on:click="shipMethod=2">
+                <div class="name" >高级配送</div>
                 <div class="price">180</div>
               </li>
             </ul>
